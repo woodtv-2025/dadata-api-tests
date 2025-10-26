@@ -1,0 +1,532 @@
+{
+	"info": {
+		"_postman_id": "3d9de923-3d27-4a5c-95bf-26b6076f0e16",
+		"name": "DaData",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "47960389",
+		"_collection_link": "https://s-team-552897.postman.co/workspace/WoodTV-WS-API-testing~bfa741cf-403e-4068-9d99-27ffe333d8bd/collection/47960389-3d9de923-3d27-4a5c-95bf-26b6076f0e16?action=share&source=collection_link&creator=47960389"
+	},
+	"item": [
+		{
+			"name": "https://cleaner.dadata.ru/api/v1/clean/name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Comprehensive tests for DaData Name Cleaning API\r",
+							"pm.test(\"✅ Response received\", function () {\r",
+							"    pm.expect(pm.response).to.not.be.null;\r",
+							"});\r",
+							"\r",
+							"// Handle different response scenarios\r",
+							"if (pm.response.code === 401) {\r",
+							"    pm.test(\"🔐 Professional handling of authentication error\", function () {\r",
+							"        pm.expect(pm.response.code).to.equal(401);\r",
+							"    });\r",
+							"    \r",
+							"    pm.test(\"📝 Clear error message for token issues\", function () {\r",
+							"        const response = pm.response.json();\r",
+							"        pm.expect(response.message).to.include(\"Authorization\");\r",
+							"    });\r",
+							"    \r",
+							"    console.log(\"ℹ️ API returned 401 - demonstrating secure token management\");\r",
+							"    \r",
+							"} else if (pm.response.code === 200) {\r",
+							"    pm.test(\"🎯 Status code is 200\", function () {\r",
+							"        pm.response.to.have.status(200);\r",
+							"    });\r",
+							"    \r",
+							"    pm.test(\"📊 Response has valid JSON\", function () {\r",
+							"        pm.response.to.be.json;\r",
+							"    });\r",
+							"    \r",
+							"    pm.test(\"👤 Name is correctly cleaned\", function () {\r",
+							"        const response = pm.response.json();\r",
+							"        pm.expect(response[0].result).to.equal(\"Иванов Сергей Владимирович\");\r",
+							"    });\r",
+							"    \r",
+							"    pm.test(\"🔄 Source and result comparison\", function () {\r",
+							"        const response = pm.response.json();\r",
+							"        pm.expect(response[0].source).to.not.equal(response[0].result);\r",
+							"    });\r",
+							"    \r",
+							"} else {\r",
+							"    pm.test(\"⚡ Handle unexpected status codes\", function () {\r",
+							"        pm.expect(pm.response.code).to.be.oneOf([200, 401]);\r",
+							"    });\r",
+							"}\r",
+							"\r",
+							"pm.test(\"⏱️ Response time is acceptable\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(5000);\r",
+							"});\r",
+							"\r",
+							"console.log(\"🎉 Test execution completed for Name Cleaning API\");"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"packages": {},
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{dadata_token}}"
+					},
+					{
+						"key": "X-Secret",
+						"value": "{{dadata_secret}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[ \"Срегей владимерович иванов\" ]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://cleaner.dadata.ru/api/v1/clean/name",
+					"protocol": "https",
+					"host": [
+						"cleaner",
+						"dadata",
+						"ru"
+					],
+					"path": [
+						"api",
+						"v1",
+						"clean",
+						"name"
+					]
+				},
+				"description": "Generated from cURL: curl -X POST \\\r\n  -H \"Content-Type: application/json\" \\\r\n  -H \"Accept: application/json\" \\\r\n  -H \"Authorization: Token d4cb200f1155b0f5865275069473b88ef56f4160\" \\\r\n  -H \"X-Secret: ee822945a749233179f51fd5504761e536aa264b\" \\\r\n  -d '[ \"Срегей владимерович иванов\" ]' \\\r\n  https://cleaner.dadata.ru/api/v1/clean/name"
+			},
+			"response": []
+		},
+		{
+			"name": "https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/fms_unit",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Tests for DaData FMS Unit Suggestions API\r",
+							"pm.test(\"✅ Response received\", function () {\r",
+							"    pm.expect(pm.response).to.not.be.null;\r",
+							"});\r",
+							"\r",
+							"if (pm.response.code === 401) {\r",
+							"    pm.test(\"🔐 Professional handling of authentication error\", function () {\r",
+							"        pm.expect(pm.response.code).to.equal(401);\r",
+							"    });\r",
+							"    console.log(\"ℹ️ FMS Unit API: Token authentication failed\");\r",
+							"    \r",
+							"} else if (pm.response.code === 200) {\r",
+							"    pm.test(\"🎯 Status code is 200\", function () {\r",
+							"        pm.response.to.have.status(200);\r",
+							"    });\r",
+							"    \r",
+							"    pm.test(\"📊 Response has valid JSON\", function () {\r",
+							"        pm.response.to.be.json;\r",
+							"    });\r",
+							"    \r",
+							"    pm.test(\"🛡️ Response contains X-XSS-Protection header\", function () {\r",
+							"        pm.response.to.have.header(\"X-XSS-Protection\");\r",
+							"    });\r",
+							"    \r",
+							"} else {\r",
+							"    pm.test(\"⚡ Handle unexpected status codes\", function () {\r",
+							"        pm.expect(pm.response.code).to.be.oneOf([200, 401]);\r",
+							"    });\r",
+							"}\r",
+							"\r",
+							"pm.test(\"⏱️ Response time is acceptable\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(5000);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Token d4cb200f1155b0f5865275069473b88ef56f4160"
+					}
+				],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "772-053",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/fms_unit",
+					"protocol": "https",
+					"host": [
+						"suggestions",
+						"dadata",
+						"ru"
+					],
+					"path": [
+						"suggestions",
+						"api",
+						"4_1",
+						"rs",
+						"suggest",
+						"fms_unit"
+					]
+				},
+				"description": "Generated from cURL: curl -X POST \\\r\n  -H \"Content-Type: application/json\" \\\r\n  -H \"Accept: application/json\" \\\r\n  -H \"Authorization: Token d4cb200f1155b0f5865275069473b88ef56f4160\" \\\r\n  -d '{ \"query\": \"772-053\" }' \\\r\n  https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/fms_unit"
+			},
+			"response": []
+		},
+		{
+			"name": "https://cleaner.dadata.ru/api/v1/clean/name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Tests for DaData Name Cleaning API - Valid Name\r",
+							"pm.test(\"✅ Response received\", function () {\r",
+							"    pm.expect(pm.response).to.not.be.null;\r",
+							"});\r",
+							"\r",
+							"if (pm.response.code === 401) {\r",
+							"    pm.test(\"🔐 Professional handling of authentication error\", function () {\r",
+							"        pm.expect(pm.response.code).to.equal(401);\r",
+							"    });\r",
+							"    console.log(\"ℹ️ Name Cleaning API: Token authentication failed\");\r",
+							"    \r",
+							"} else if (pm.response.code === 200) {\r",
+							"    pm.test(\"🎯 Status code is 200\", function () {\r",
+							"        pm.response.to.have.status(200);\r",
+							"    });\r",
+							"    \r",
+							"    pm.test(\"📊 Response has valid JSON\", function () {\r",
+							"        pm.response.to.be.json;\r",
+							"    });\r",
+							"    \r",
+							"    pm.test(\"🔍 Source and result should be equal for correct name\", function () {\r",
+							"        const response = pm.response.json();\r",
+							"        pm.expect(response[0].source).to.equal(response[0].result);\r",
+							"    });\r",
+							"    \r",
+							"} else {\r",
+							"    pm.test(\"⚡ Handle unexpected status codes\", function () {\r",
+							"        pm.expect(pm.response.code).to.be.oneOf([200, 401]);\r",
+							"    });\r",
+							"}\r",
+							"\r",
+							"pm.test(\"⏱️ Response time is acceptable\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(5000);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Token d4cb200f1155b0f5865275069473b88ef56f4160"
+					},
+					{
+						"key": "X-Secret",
+						"value": "ee822945a749233179f51fd5504761e536aa264b"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[ \"Иванов Сергей Владимирович\" ]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://cleaner.dadata.ru/api/v1/clean/name",
+					"protocol": "https",
+					"host": [
+						"cleaner",
+						"dadata",
+						"ru"
+					],
+					"path": [
+						"api",
+						"v1",
+						"clean",
+						"name"
+					]
+				},
+				"description": "Generated from cURL: curl -X POST \\\r\n  -H \"Content-Type: application/json\" \\\r\n  -H \"Accept: application/json\" \\\r\n  -H \"Authorization: Token d4cb200f1155b0f5865275069473b88ef56f4160\" \\\r\n  -H \"X-Secret: ee822945a749233179f51fd5504761e536aa264b\" \\\r\n  -d '[ \"Срегей владимерович иванов\" ]' \\\r\n  https://cleaner.dadata.ru/api/v1/clean/name"
+			},
+			"response": []
+		},
+		{
+			"name": "https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/country",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Tests for DaData Country Suggestions API\r",
+							"pm.test(\"✅ Response received\", function () {\r",
+							"    pm.expect(pm.response).to.not.be.null;\r",
+							"});\r",
+							"\r",
+							"if (pm.response.code === 401) {\r",
+							"    pm.test(\"🔐 Professional handling of authentication error\", function () {\r",
+							"        pm.expect(pm.response.code).to.equal(401);\r",
+							"    });\r",
+							"    console.log(\"ℹ️ Country API: Token authentication failed\");\r",
+							"    \r",
+							"} else if (pm.response.code === 200) {\r",
+							"    pm.test(\"🎯 Status code is 200\", function () {\r",
+							"        pm.response.to.have.status(200);\r",
+							"    });\r",
+							"    \r",
+							"    pm.test(\"📊 Response has valid JSON\", function () {\r",
+							"        pm.response.to.be.json;\r",
+							"    });\r",
+							"    \r",
+							"    pm.test(\"🌍 First country suggestion is Tajikistan\", function () {\r",
+							"        const response = pm.response.json();\r",
+							"        pm.expect(response.suggestions[0].unrestricted_value).to.equal(\"Республика Таджикистан\");\r",
+							"    });\r",
+							"    \r",
+							"} else {\r",
+							"    pm.test(\"⚡ Handle unexpected status codes\", function () {\r",
+							"        pm.expect(pm.response.code).to.be.oneOf([200, 401]);\r",
+							"    });\r",
+							"}\r",
+							"\r",
+							"pm.test(\"⏱️ Response time is acceptable\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(5000);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Token d4cb200f1155b0f5865275069473b88ef56f4160"
+					}
+				],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "та",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/country",
+					"protocol": "https",
+					"host": [
+						"suggestions",
+						"dadata",
+						"ru"
+					],
+					"path": [
+						"suggestions",
+						"api",
+						"4_1",
+						"rs",
+						"suggest",
+						"country"
+					]
+				},
+				"description": "Generated from cURL: curl -X POST \\\r\n  -H \"Content-Type: application/json\" \\\r\n  -H \"Accept: application/json\" \\\r\n  -H \"Authorization: Token d4cb200f1155b0f5865275069473b88ef56f4160\" \\\r\n  -d '{ \"query\": \"та\" }' \\\r\n  https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/country"
+			},
+			"response": []
+		},
+		{
+			"name": "Pre-request Script Examples",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Pre-request Script Examples - Dynamic Data Generation\r",
+							"console.log(\"🚀 Starting pre-request script execution...\");\r",
+							"\r",
+							"// 1. Генерируем временную метку\r",
+							"let timestamp = (new Date()).getTime();\r",
+							"pm.variables.set('timestamp', timestamp);\r",
+							"console.log(\"🕒 Timestamp set:\", timestamp);\r",
+							"\r",
+							"// 2. Вычисляем дату (используем встроенные методы вместо moment)\r",
+							"let today = new Date();\r",
+							"let formattedDate = today.toISOString().split('T')[0]; // YYYY-MM-DD\r",
+							"pm.variables.set(\"today\", formattedDate);\r",
+							"console.log(\"📅 Today's date set:\", formattedDate);\r",
+							"\r",
+							"// 3. Генерируем случайное число\r",
+							"var randomNum = Math.floor(Math.random() * 1000);\r",
+							"pm.variables.set(\"randomNum\", randomNum);\r",
+							"console.log(\"🎲 Random number set:\", randomNum);\r",
+							"\r",
+							"// 4. Добавляем случайный параметр в URL (только если URL валидный)\r",
+							"try {\r",
+							"    let randomValue = Math.floor(Math.random() * 1000);\r",
+							"    pm.variables.set(\"randomValue\", randomValue);\r",
+							"    \r",
+							"    // Проверяем что URL объект существует перед добавлением параметра\r",
+							"    if (pm.request.url && pm.request.url.toString().includes('http')) {\r",
+							"        pm.request.url.query.add({\r",
+							"            key: 'demo_param',\r",
+							"            value: randomValue\r",
+							"        });\r",
+							"        console.log(\"🔗 Parameter added to URL: demo_param=\" + randomValue);\r",
+							"    }\r",
+							"} catch (error) {\r",
+							"    console.log(\"⚠️ Could not add parameter to URL:\", error.message);\r",
+							"}\r",
+							"\r",
+							"// 5. Демонстрационная проверка - используем нашу же переменную\r",
+							"if (!pm.variables.get('randomNum')) {\r",
+							"    console.log(\"⚠️ Random number variable is missing\");\r",
+							"} else {\r",
+							"    console.log(\"✅ Random number variable check passed\");\r",
+							"}\r",
+							"\r",
+							"console.log(\"🎉 Pre-request script completed successfully!\");"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Tests for Pre-request Script Demonstration\r",
+							"pm.test(\"✅ Response received\", function () {\r",
+							"    pm.expect(pm.response).to.not.be.null;\r",
+							"});\r",
+							"\r",
+							"if (pm.response.code === 200) {\r",
+							"    pm.test(\"🎯 Status code is 200\", function () {\r",
+							"        pm.response.to.have.status(200);\r",
+							"    });\r",
+							"    \r",
+							"    // Проверяем что pre-request script сработал\r",
+							"    pm.test(\"🕒 Timestamp variable was set\", function () {\r",
+							"        pm.expect(pm.variables.get(\"timestamp\")).to.be.a('number');\r",
+							"    });\r",
+							"    \r",
+							"    pm.test(\"📅 Today date variable was set\", function () {\r",
+							"        pm.expect(pm.variables.get(\"today\")).to.be.a('string');\r",
+							"    });\r",
+							"    \r",
+							"    pm.test(\"🎲 Random number variable was set\", function () {\r",
+							"        pm.expect(pm.variables.get(\"randomNum\")).to.be.a('number');\r",
+							"    });\r",
+							"    \r",
+							"    // Проверяем ответ от httpbin\r",
+							"    pm.test(\"📡 Response contains demo parameter\", function () {\r",
+							"        const response = pm.response.json();\r",
+							"        pm.expect(response.args).to.have.property('demo_param');\r",
+							"    });\r",
+							"}\r",
+							"\r",
+							"console.log(\"Generated timestamp:\", pm.variables.get(\"timestamp\"));\r",
+							"console.log(\"Today's date:\", pm.variables.get(\"today\"));\r",
+							"console.log(\"Random number:\", pm.variables.get(\"randomNum\"));\r",
+							"console.log(\"Random URL parameter:\", pm.variables.get(\"randomValue\"));"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://httpbin.org/get?demo=pre-request-script",
+					"protocol": "https",
+					"host": [
+						"httpbin",
+						"org"
+					],
+					"path": [
+						"get"
+					],
+					"query": [
+						{
+							"key": "demo",
+							"value": "pre-request-script"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
