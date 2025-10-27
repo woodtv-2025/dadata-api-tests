@@ -4,13 +4,13 @@
 	"values": [
 		{
 			"key": "dadata_token",
-			"value": "",
+			"value": "YOUR_DADATA_API_TOKEN_HERE",
 			"type": "default",
 			"enabled": true
 		},
 		{
 			"key": "dadata_secret",
-			"value": "",
+			"value": "YOUR_DADATA_SECRET_KEY_HERE",
 			"type": "default",
 			"enabled": true
 		}
